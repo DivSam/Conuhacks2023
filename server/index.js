@@ -1,10 +1,24 @@
+require("dotenv").config();
+
 const express = require("express");
-const { MongoClient } = require("mongodb");
+const mongoose = require("mongoose");
+const mongoString = process.env.DATABASE_URL;
+const routes = require("./routes/routes");
+
+mongoose.connect(mongoString);
+const database = mongoose.connection;
+
+database.on("error", (error) => {
+  console.log(error);
+});
+
+database.once("connected", () => {
+  console.log("Database Connected");
+});
 const app = express();
-const port = 3001;
 
-const uri = "mongodb://localhost:27017";
-
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+app.use(express.json());
+app.use("/api", routes);
+app.listen(3000, () => {
+  console.log(`Server Started at ${3000}`);
 });
