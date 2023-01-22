@@ -7,5 +7,5 @@
   align-items: center;
   flex-direction: column;
   gap: 1vh;
-  background-color: #1c2127;
+  background: url(./assets/bubbleBackground.png)
 }

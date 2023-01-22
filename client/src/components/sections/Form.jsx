@@ -1,6 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import { FormGroup, Label, Input, Submit, LabelRadio, InputRadio } from "../FormComponents";
+import { useState } from "react";
+import { motion } from "framer-motion";
+import Handle from "../Handle";
 
 const Section = styled.section`
   height: ${(props) => `calc(100vh - ${props.theme.navHeight} - 2rem)`};
@@ -8,7 +11,7 @@ const Section = styled.section`
   width: 90vw;
   postion: relative;
   background: rgba(190, 212, 233, 0.85);
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.85);
   backdrop-filter: blur(11px);
   -webkit-backdrop-filter: blur(11px);
   border-radius: 10px;
@@ -58,8 +61,29 @@ const Box = styled.div`
   height: 100%;
 `
 
+const Switch = styled.div`
+  width: 80px;
+  height: 40px;
+  background-color: rgba(255, 0, 0, 1);
+  display: flex;
+  justify-content: flex-start;
+  border-radius: 50px;
+  padding: 10px;
+  cursor: pointer;
+
+  &[data-ison="true"]{
+    justify-content: flex-end;
+    background-color: rgba(0, 255, 0, 1);
+  }
+
+`
+
 const Form = () => {
+  const [isOn, setIsOn] = useState(false);
+
+  const toggleSwitch = () => setIsOn(!isOn);
   return (
+    <motion.div exit={{opacity: 0}}>
     <Section>
       <Container>
         <Title>Complete This Form About your disease</Title>
@@ -82,14 +106,9 @@ const Form = () => {
             </FormGroup>
             <FormGroup>
               <Label>Verified</Label>
-              <Box>
-                <LabelRadio for="yes">Yes</LabelRadio>
-                <InputRadio id="yes" name="verified" value="Yes" type="radio"/>
-              </Box>
-              <Box>
-                <LabelRadio for="no">No</LabelRadio>
-                <InputRadio id="no" name="verified" value="No" type="radio"/>
-              </Box>
+              <Switch className="switch" data-ison={isOn} onClick={toggleSwitch}>
+                <Handle transition={spring}></Handle>
+              </Switch>
             </FormGroup>
             <FormGroup>
               <Submit type="submit" value="Submit"/>
@@ -97,7 +116,14 @@ const Form = () => {
         </FormContainer>
       </Container>
     </Section>
+    </motion.div>
   );
+};
+
+const spring = {
+  type: "spring",
+  stiffness: 700,
+  damping: 30
 };
 
 export default Form;

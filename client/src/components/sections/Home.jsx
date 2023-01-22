@@ -8,7 +8,7 @@ margin-bottom:5px;
 width: 90vw;
 postion: relative;
 background: rgba( 190, 212, 233, 0.85 );
-box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.85 );
 backdrop-filter: blur( 11px );
 -webkit-backdrop-filter: blur( 11px );
 border-radius: 10px;

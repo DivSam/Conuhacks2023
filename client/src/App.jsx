@@ -6,6 +6,7 @@ import Navigation from './components/Navigation';
 import Form from './components/sections/Form';
 import Map from './components/sections/Map';
 import Home from './components/sections/Home';
+import { motion } from "framer-motion";
 
 
 
@@ -16,7 +17,13 @@ import Home from './components/sections/Home';
 function App() {
 
   return (
-    <><Router>
+    <>
+    <motion.div
+      className="box"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+    />
+      <Router>
         <GlobalStyles />
         <ThemeProvider theme={light}>
           <Navigation/>
