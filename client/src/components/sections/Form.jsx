@@ -111,7 +111,7 @@ const Form = () => {
 
   const toggleSwitch = () => setIsOn(!isOn);
   return (
-    <motion.div exit={{opacity: 0}}>
+    <motion.div exit={{opacity: 1}}>
     <Section>
       <Container>
         <Title>Complete This Form About your disease</Title>
