@@ -5,7 +5,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import Handle from "../Handle";
 import Geocode from "react-geocode";
-Geocode.setApiKey("AIzaSyBYFr8VOe7WuJraU1SX7pOWbKEZyyacVEc");
+Geocode.setApiKey("*******");
 Geocode.setLanguage("en");
 Geocode.setLocationType("ROOFTOP");
 
