@@ -10,6 +10,8 @@ router.post("/post", async (req, res) => {
     name: req.body.name,
     age: req.body.age,
     location: req.body.location,
+    longitude: req.body.longitude,
+    latitude: req.body.latitude,
     disease: req.body.disease,
     verified: req.body.verified,
   });

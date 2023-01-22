@@ -13,6 +13,14 @@ const dataSchema = new mongoose.Schema({
     required: true,
     type: String,
   },
+  longitude: {
+    required: true,
+    type: Number,
+  },
+  latitude: {
+    required: true,
+    type: Number,
+  },
   disease: {
     required: true,
     type: String,

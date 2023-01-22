@@ -4,6 +4,10 @@ import { FormGroup, Label, Input, Submit, LabelRadio, InputRadio } from "../Form
 import { useState } from "react";
 import { motion } from "framer-motion";
 import Handle from "../Handle";
+import Geocode from "react-geocode";
+Geocode.setApiKey("AIzaSyBYFr8VOe7WuJraU1SX7pOWbKEZyyacVEc");
+Geocode.setLanguage("en");
+Geocode.setLocationType("ROOFTOP");
 
 const Section = styled.section`
   height: ${(props) => `calc(100vh - ${props.theme.navHeight} - 2rem)`};
@@ -78,8 +82,32 @@ const Switch = styled.div`
 
 `
 
+
 const Form = () => {
+ 
   const [isOn, setIsOn] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const data = new FormData(form);
+    const value = Object.fromEntries(data.entries());
+    value.verified = isOn;
+    console.log(value);
+
+    Geocode.fromAddress(value.location).then(
+      (response) => {
+        const { lat, lng } = response.results[0].geometry.location;
+        console.log(lat, lng);
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+    
+  }
+
+ 
 
   const toggleSwitch = () => setIsOn(!isOn);
   return (
@@ -87,22 +115,22 @@ const Form = () => {
     <Section>
       <Container>
         <Title>Complete This Form About your disease</Title>
-        <FormContainer method="POST" action="/post-feedback">
+        <FormContainer method="POST" action="/post-feedback" onSubmit={handleSubmit}>
             <FormGroup>
-              <Label htmlFor="label">Name</Label>
-              <Input id="label" />
+              <Label htmlFor="name">Name</Label>
+              <Input id="name" name="name" />
             </FormGroup>
             <FormGroup>
-              <Label htmlFor="label">Age</Label>
-              <Input id="label" />
+              <Label htmlFor="age">Age</Label>
+              <Input id="age" name="age"/>
             </FormGroup>
             <FormGroup>
               <Label>Location</Label>
-              <Input />
+              <Input id="location" name="location"/>
             </FormGroup>
             <FormGroup>
               <Label>Disease</Label>
-              <Input />
+              <Input id="disease" name="disease" />
             </FormGroup>
             <FormGroup>
               <Label>Verified</Label>
