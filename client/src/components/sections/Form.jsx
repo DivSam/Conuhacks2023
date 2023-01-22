@@ -1,8 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { FormGroup, Label, Input, Submit, LabelRadio, InputRadio } from "../FormComponents";
+import { FormGroup, Label, Input, Submit} from "../FormComponents";
 import { useState } from "react";
-import { motion } from "framer-motion";
 import Handle from "../Handle";
 import Geocode from "react-geocode";
 Geocode.setApiKey("*******");
@@ -66,8 +65,8 @@ const Box = styled.div`
 `
 
 const Switch = styled.div`
-  width: 80px;
-  height: 40px;
+  width: 60px;
+  height: 20px;
   background-color: rgba(255, 0, 0, 1);
   display: flex;
   justify-content: flex-start;
@@ -111,7 +110,6 @@ const Form = () => {
 
   const toggleSwitch = () => setIsOn(!isOn);
   return (
-    <motion.div exit={{opacity: 1}}>
     <Section>
       <Container>
         <Title>Complete This Form About your disease</Title>
@@ -144,7 +142,6 @@ const Form = () => {
         </FormContainer>
       </Container>
     </Section>
-    </motion.div>
   );
 };
 

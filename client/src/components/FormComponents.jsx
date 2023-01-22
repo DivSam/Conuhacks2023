@@ -61,13 +61,4 @@ export const Submit = styled.input`
     transform: translate(-50%, -50%) scale(1);
     padding: 0.3rem;
   }
-`;
-
-
-export const LabelRadio = styled.label`
-    font-size: ${(props) => props.theme.fontmd};
-    color: ${(props) => props.theme.body};
-`
-
-export const InputRadio = styled.input`
 `

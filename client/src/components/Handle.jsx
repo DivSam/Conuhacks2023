@@ -4,8 +4,8 @@ import { motion } from 'framer-motion'
 const Handle = (spring) => {
   return (
     <motion.div style={{
-        width: "40px",
-        height: "40px",
+        width: "20px",
+        height: "20px",
         backgroundColor: "white",
         borderRadius: "40px"
     }} className="handle" layout transition={spring} />
