@@ -9,14 +9,14 @@ const Section = styled.section`
 margin-bottom:1%;
 overflow:hidden;
 position:fixed;
-top:0;
+top:.75vh;
 z-index:100;
 width: 90vw;
 background: rgba( 28, 33, 39, 0.85 );
 box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.85 );
 backdrop-filter: blur( 5px );
 -webkit-backdrop-filter: blur( 5px );
-border-radius: 0px 0px 10px 10px;
+border-radius:10px;
 border: 1px solid rgba( 255, 255, 255, 0.18 );
 `
 const NavBar = styled.nav`
