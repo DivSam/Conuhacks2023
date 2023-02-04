@@ -1,2 +1,2 @@
 # Conuhacks2023
-Healthcare respondant webapp using express/react/mongodb/grafana
+Healthcare respondant webapp using the MERN stack
