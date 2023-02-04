@@ -13,11 +13,11 @@ const dataSchema = new mongoose.Schema({
     required: true,
     type: String,
   },
-  longitude: {
+  lng: {
     required: true,
     type: Number,
   },
-  latitude: {
+  lat: {
     required: true,
     type: Number,
   },

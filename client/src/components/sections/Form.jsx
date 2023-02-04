@@ -4,10 +4,6 @@ import { FormGroup, Label, Input, Submit} from "../FormComponents";
 import { useState } from "react";
 import Handle from "../Handle";
 import Geocode from "react-geocode";
-import axios from "axios";
-Geocode.setApiKey("AIzaSyBYFr8VOe7WuJraU1SX7pOWbKEZyyacVEc");
-Geocode.setLanguage("en");
-Geocode.setLocationType("ROOFTOP");
 
 const Section = styled.section`
   height: ${(props) => `calc(100vh - ${props.theme.navHeight} - 2rem)`};
@@ -81,50 +77,35 @@ const Switch = styled.div`
   }
 
 `
+Geocode.setApiKey(""); // API key
+Geocode.setLanguage("en");
+Geocode.setLocationType("ROOFTOP");
 
+const Form = ({ onSubmit, children }) => {
 
-const Form = () => {
- 
   const [isOn, setIsOn] = useState(false);
-  const [location, setLocation] = useState("");
-  const [lat, setLat] = useState("");
-  const [lng, setLng] = useState("");
-  const [disease, setDisease] = useState("");
-  const [verified, setVerified] = useState(false);
-  const [name, setName] = useState("");
-  const [age, setAge] = useState("");
+  const [response, setResponse] = useState(null);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // const form = e.target;
-    // const data = new FormData(form);
-    // const value = Object.fromEntries(data.entries());
-    const value = {
-      name, 
-      age,
-      location,
-      disease,
-      verified,
-      lat,
-      lng
-    }
-    
-    
+    const form = e.target;
+    const data = new FormData(form);
+    const value = Object.fromEntries(data.entries());
+    value.verified = isOn;
+  
+  
     Geocode.fromAddress(value.location).then(
-       (response) => {
-        const { lat, lng } = response.results[0].geometry.location;
-        value.lat = lat;
-        value.lng = lng;
-        console.log(value)
-        const res = fetch("http://127.0.0.1:3000/api/post", {
+       (geo_response) => {
+        const { lat, lng } = geo_response.results[0].geometry.location;
+        const newValue = { ...value, lat, lng };
+
+        fetch("http://localhost:3000/api/post", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(value),
+          body: JSON.stringify(newValue),
         }).then((res) => res.json()).then((data) => console.log(data));
-      
-        
       },
       (error) => {
         console.error(error);
@@ -134,29 +115,28 @@ const Form = () => {
     
   }
 
- 
 
   const toggleSwitch = () => setIsOn(!isOn);
   return (
     <Section>
       <Container>
         <Title>Complete This Form About your disease</Title>
-        <FormContainer method="POST" action="/post-feedback" onSubmit={handleSubmit}>
+        <FormContainer action='/' method="POST" onSubmit={handleSubmit}>
             <FormGroup>
               <Label htmlFor="name">Name</Label>
-              <Input id="name" name="name" value={name} onChange={(e)=>setName(e.target.value)}/>
+              <Input id="name" name="name" />
             </FormGroup>
             <FormGroup>
               <Label htmlFor="age">Age</Label>
-              <Input id="age" name="age" value={age} onChange={(e)=>setAge(e.target.value)}/>
+              <Input id="age" name="age"/>
             </FormGroup>
             <FormGroup>
               <Label>Location</Label>
-              <Input id="location" name="location" value={location} onChange={(e)=>setLocation(e.target.value)}/>
+              <Input id="location" name="location"/>
             </FormGroup>
             <FormGroup>
               <Label>Disease</Label>
-              <Input id="disease" name="disease" value={disease} onChange={(e)=>setDisease(e.target.value)} />
+              <Input id="disease" name="disease" />
             </FormGroup>
             <FormGroup>
               <Label>Verified</Label>
@@ -166,6 +146,7 @@ const Form = () => {
             </FormGroup>
             <FormGroup>
               <Submit type="submit" value="Submit"/>
+              {response && <p>{JSON.stringify(response)}</p>}
             </FormGroup>
         </FormContainer>
       </Container>

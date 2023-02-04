@@ -10,17 +10,19 @@ router.post("/post", async (req, res) => {
     name: req.body.name,
     age: req.body.age,
     location: req.body.location,
-    longitude: req.body.longitude,
-    latitude: req.body.latitude,
+    lng: req.body.lng,
+    lat: req.body.lat,
     disease: req.body.disease,
     verified: req.body.verified,
   });
-  try {
-    const dataToSave = await data.save();
-    res.status(200).json(dataToSave);
-  } catch (error) {
-    res.status(400).json({ message: error.message });
-  }
+  data
+    .save()
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((error) => {
+      res.json(error);
+    });
 });
 
 //Get all Method
