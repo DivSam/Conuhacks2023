@@ -1,2 +1,2 @@
 # EPIDEMAP
-Healthcare respondant webapp using the MERN stack
+Healthcare census webapp using the MERN stack
