@@ -4,6 +4,7 @@ import { FormGroup, Label, Input, Submit} from "../FormComponents";
 import { useState } from "react";
 import Handle from "../Handle";
 import Geocode from "react-geocode";
+import { useNavigate } from "react-router-dom";
 
 const Section = styled.section`
   height: ${(props) => `calc(100vh - ${props.theme.navHeight} - 2rem)`};
@@ -77,11 +78,12 @@ const Switch = styled.div`
   }
 
 `
-Geocode.setApiKey(""); // API key
+Geocode.setApiKey("AIzaSyBYFr8VOe7WuJraU1SX7pOWbKEZyyacVEc"); // API key
 Geocode.setLanguage("en");
 Geocode.setLocationType("ROOFTOP");
 
 const Form = ({ onSubmit, children }) => {
+  const navigate = useNavigate();
 
   const [isOn, setIsOn] = useState(false);
   const [response, setResponse] = useState(null);
@@ -105,7 +107,7 @@ const Form = ({ onSubmit, children }) => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(newValue),
-        }).then((res) => res.json()).then((data) => console.log(data));
+        }).then(() => navigate("/formSent"));
       },
       (error) => {
         console.error(error);

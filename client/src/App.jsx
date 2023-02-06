@@ -7,6 +7,7 @@ import Navigation from "./components/Navigation";
 import Form from "./components/sections/Form";
 import Map from "./components/sections/Map";
 import Home from "./components/sections/Home";
+import FormSent from "./components/sections/FormSent";
 import "./App.css"
 
 function App() {
@@ -47,6 +48,7 @@ function Content() {
         <Route path="/" element={<Home />} />
         <Route path="/form" element={<Form />}></Route>
         <Route path="/app" element={<Map />} />
+        <Route path="/formSent" element={<FormSent />}></Route>
       </Routes>
     </div>
   );
