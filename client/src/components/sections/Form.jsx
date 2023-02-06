@@ -78,7 +78,7 @@ const Switch = styled.div`
   }
 
 `
-Geocode.setApiKey("AIzaSyBYFr8VOe7WuJraU1SX7pOWbKEZyyacVEc"); // API key
+Geocode.setApiKey(""); // API key
 Geocode.setLanguage("en");
 Geocode.setLocationType("ROOFTOP");
 
