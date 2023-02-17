@@ -38,10 +38,24 @@ function MyMapComponent({ center, zoom }) {
   const ref = useRef()
 
   useEffect(() => {
+    const map =
     new window.google.maps.Map(ref.current, {
       center,
       zoom
     })
+
+    fetch("http://localhost:3000/api/getAll")
+    .then(response => response.json())
+    .then(data => {
+      data.forEach((person) => {
+        const marker = new window.google.maps.Marker({
+          position: {lat: person.lat, lng: person.lng},
+          map: map,
+          title: person.name
+        });
+        // Here if you console.log the person.name, you will see the name of the person in dev tools
+      });
+    });
   })
 
   return <MapContainer ref={ref} id="map" />
