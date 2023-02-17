@@ -27,7 +27,13 @@ router.post("/post", async (req, res) => {
 
 //Get all Method
 router.get("/getAll", (req, res) => {
-  res.send("Get All API");
+  Model.find()
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((error) => {
+      res.json(error);
+    });
 });
 
 //Get by ID Method
