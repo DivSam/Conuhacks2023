@@ -36,6 +36,7 @@ const MapContainer = styled.div`
 
 function MyMapComponent({ center, zoom }) {
   const ref = useRef()
+  var currentInfoWindow = null;
 
   useEffect(() => {
     const map =
@@ -52,6 +53,34 @@ function MyMapComponent({ center, zoom }) {
           position: {lat: person.lat, lng: person.lng},
           map: map,
           title: person.name
+        });
+        const contentString = `<div id="content">` +
+          `<div id="siteNotice">` +
+          `</div>` +
+          `<h1 id="firstHeading" class="firstHeading">${person.name}</h1>` +
+          `<div id="bodyContent">` +
+          `<p><b>Age:</b> ${person.age}</p>` +
+          `<p><b>Location:</b> ${person.location}</p>` +
+          `<p><b>Disease:</b> ${person.disease}</p>` +
+          `<p><b>Verified:</b> ${person.verified}</p>` +
+          `</div>` +
+          `</div>`;
+        const infowindow = new google.maps.InfoWindow({
+          content: contentString,
+          ariaLabel: `${person.name}`,
+        });
+        marker.addListener("click", () => {
+          if (currentInfoWindow) {
+            currentInfoWindow.close();
+          }
+          infowindow.open({
+            anchor: marker,
+            map,
+          });
+          currentInfoWindow = infowindow;
+        });
+        map.addListener("click", () => {
+          infowindow.close();
         });
         // Here if you console.log the person.name, you will see the name of the person in dev tools
       });
