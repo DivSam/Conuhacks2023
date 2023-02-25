@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import { MarkerClusterer } from '@googlemaps/markerclusterer'
 import { Wrapper, Status } from '@googlemaps/react-wrapper'
 import Loading from '../Loading'
 import Failed from '../Failed'
@@ -40,9 +39,20 @@ function MyMapComponent({ center, zoom }) {
 
   useEffect(() => {
     const map =
-    new window.google.maps.Map(ref.current, {
+    new google.maps.Map(ref.current, {
       center,
-      zoom
+      zoom,
+      minZoom: 2,
+      maxZoom: 20, 
+      restriction: {
+        latLngBounds: {
+          north: 80,
+          south: -80,
+          west: -130,
+          east: 130,
+        },
+      },
+      zoomControl: true,
     })
 
     fetch("http://localhost:3000/api/getAll")
@@ -82,7 +92,6 @@ function MyMapComponent({ center, zoom }) {
         map.addListener("click", () => {
           infowindow.close();
         });
-        // Here if you console.log the person.name, you will see the name of the person in dev tools
       });
     });
   })
